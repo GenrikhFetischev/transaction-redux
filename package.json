@@ -1,0 +1,23 @@
+{
+  "name": "transaction-redux",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "author": "genrikh <genrikhfetischev@ygmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint --ext=ts src/*"
+  },
+  "dependencies": {
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "husky": "^3.0.9",
+    "prettier": "^1.18.2",
+    "typescript": "^3.7.2"
+  }
+}

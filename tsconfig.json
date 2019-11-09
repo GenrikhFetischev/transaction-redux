@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "outDir": "./lib",
+    "lib": ["es7"],
+    "target": "es2015"
+  },
+  "include": ["src/"],
+  "exclude": ["node_modules"]
+
+}
