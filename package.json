@@ -2,8 +2,13 @@
   "name": "transaction-redux",
   "version": "0.0.1",
   "main": "lib/index.js",
-  "author": "genrikh <genrikhfetischev@ygmail.com>",
+  "types": "lib/index.d.ts",
+  "author": "Genrikh Fetischev <genrikhfetischev@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/GenrikhFetischev/transaction-redux"
+  },
   "scripts": {
     "build": "tsc",
     "lint": "eslint --ext=ts src/*",
