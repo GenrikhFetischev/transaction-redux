@@ -6,10 +6,9 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "outDir": "./lib",
-    "lib": ["es7"],
+    "lib": ["es7", "dom"],
     "target": "es2015"
   },
   "include": ["src/"],
   "exclude": ["node_modules"]
-
 }
