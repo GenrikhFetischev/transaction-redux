@@ -16,10 +16,7 @@ export const createTransactionWrapper = (
   const returnValue = await dispatch(action);
   trafficLight.isUpdatesEnabled = true;
 
-  statesHolder.externalStore.dispatch({
-    type: "dump",
-    payload: statesHolder.dirtyStore.getState()
-  });
+  statesHolder.forceSyncStores();
 
   return returnValue;
 };

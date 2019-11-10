@@ -26,5 +26,6 @@ export const createStoreCreator = (
   dirtyStore.subscribe(
     createDumpListener(externalStore, dirtyStore, trafficLight)
   );
+  statesHolder.forceSyncStores();
   return new TransactionStore(dirtyStore, externalStore);
 };
