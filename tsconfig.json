@@ -1,15 +1,20 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "rootDir": "src",
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationDir": "./lib/types",
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["es7", "dom"],
+    "module": "es2015",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "./lib",
-    "lib": ["es7", "dom"],
-    "target": "es2015",
-    "declaration": true
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "sourceMap": true,
+    "target": "es2015"
   },
-  "include": ["src/"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
