@@ -1,16 +1,23 @@
 {
   "name": "transaction-redux",
   "version": "0.0.1",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/index.cjs.js",
+  "types": "lib/types/index.d.ts",
+  "module": "lib/index.esm.js",
   "author": "Genrikh Fetischev <genrikhfetischev@gmail.com>",
   "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "lib"
+  ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/GenrikhFetischev/transaction-redux"
+    "type": "git",
+    "url": "https://github.com/GenrikhFetischev/transaction-redux"
   },
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rimraf lib/*",
+    "build": "rollup -c",
+    "prepublish": "yarn lint && yarn test && yarn build",
     "lint": "eslint --ext=ts src/*",
     "test": "jest"
   },
@@ -19,6 +26,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^4.0.0",
     "@types/jest": "^24.0.22",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
@@ -26,6 +34,15 @@
     "husky": "^3.0.9",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "rollup-plugin-url": "^3.0.0",
+    "rollup": "^1.27.1",
     "ts-jest": "^24.1.0",
     "typescript": "^3.7.2"
   }

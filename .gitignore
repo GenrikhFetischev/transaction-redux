@@ -1,2 +1,23 @@
-/node_modules/
-/lib/
+# IDE
+.idea
+*.iml
+.history
+
+# trash
+.DS_Store
+*.log
+*.bak
+*.gz
+*.tgz
+.tmp
+
+# common
+node_modules
+.env
+.rpt2_cache
+
+# dist
+lib
+
+# tests
+coverage/
