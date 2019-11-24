@@ -5,6 +5,9 @@
   "types": "lib/types/index.d.ts",
   "module": "lib/index.esm.js",
   "author": "Genrikh Fetischev <genrikhfetischev@gmail.com>",
+  "maintainers": [
+    "Nick Tsapkin (https://github.com/fobdy)"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "files": [
