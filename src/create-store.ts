@@ -6,13 +6,21 @@ import { statesHolder } from "./states-holder";
 
 export type StoreCreator = <S, A extends Action, Ext, StateExt>(
   reducer: Reducer<S, A>,
-  preloadState: DeepPartial<S>,
+  preloadState?: DeepPartial<S>,
   enhancer?: StoreEnhancer<Ext, StateExt>
 ) => Store;
 
 export const createStoreCreator = (
   trafficLight: TrafficLight
-): StoreCreator => (reducer, preloadState, enhancer?) => {
+): StoreCreator => (reducer, preloadState?, enhancer?, ...rest) => {
+  if (rest.length > 0) {
+    throw new Error(
+      "It looks like you are passing several store enhancers to " +
+        "createStore(). This is not supported. Instead, compose them " +
+        "together to a single function."
+    );
+  }
+
   const dirtyStore = statesHolder.createDirtyStore(
     reducer,
     preloadState,

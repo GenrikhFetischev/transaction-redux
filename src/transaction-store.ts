@@ -1,5 +1,6 @@
 import { Store } from "redux";
 
+
 export default class TransactionStore implements Store {
   constructor(
     private readonly dirtyStore: Store,

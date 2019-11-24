@@ -11,6 +11,9 @@
   },
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "no-shadow-restricted-names": "off",
+    "@typescript-eslint/ban-ts-ignore": "off"
   }
 }

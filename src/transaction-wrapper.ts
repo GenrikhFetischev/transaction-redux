@@ -1,22 +1,30 @@
 import { TrafficLight } from "./traffic-light";
-import { AnyAction } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { StatesHolder } from "./states-holder";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { Action } from "redux";
 
 export const createTransactionWrapper = (
   trafficLight: TrafficLight,
   statesHolder: StatesHolder
-  // eslint-disable-next-line
-) => (action: AnyAction | ThunkAction<any, any, any, any>) => async (
-  // eslint-disable-next-line
-  dispatch: ThunkDispatch<any, any, any>
+) => <R, S, E, A extends Action>(action: ThunkAction<R, S, E, A>) => async (
+  dispatch: ThunkDispatch<S, E, A>
 ) => {
+  let error: Error | undefined;
+  let returnValue: any;
   trafficLight.isUpdatesEnabled = false;
 
-  const returnValue = await dispatch(action);
-  trafficLight.isUpdatesEnabled = true;
+  try {
+    returnValue = await dispatch(action);
+  } catch (e) {
+    error = e;
+  } finally {
+    trafficLight.isUpdatesEnabled = true;
+    statesHolder.forceSyncStores();
+  }
 
-  statesHolder.forceSyncStores();
+  if (error !== undefined) {
+    throw error;
+  }
 
   return returnValue;
 };

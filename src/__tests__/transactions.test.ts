@@ -1,6 +1,6 @@
-import { AnyAction, Dispatch, Reducer, Store } from "redux";
-import { createStore, transactionWrapper } from "../src/";
-import { ThunkDispatch } from "redux-thunk";
+import {AnyAction, applyMiddleware, Reducer} from "redux";
+import { createStore, transactionWrapper } from "../";
+import thunk ,{ ThunkDispatch } from "redux-thunk";
 
 describe("all tests", () => {
   const preloadState = { value: "initial" };
@@ -11,11 +11,8 @@ describe("all tests", () => {
     type: "action",
     payload
   });
-  const store = createStore(reducer, preloadState);
+  const store = createStore(reducer, preloadState, applyMiddleware(thunk));
 
-  test("preload store value", () => {
-    expect(store.getState().value).toBe("initial");
-  });
 
   test("synchronous transaction", async () => {
     const subscriber = jest.fn();

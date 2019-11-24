@@ -1,5 +1,9 @@
-import { createStore, Reducer, Store, StoreEnhancer } from "redux";
-import { applyMiddleware } from "./reexports";
+import {
+  createStore,
+  Reducer,
+  Store,
+  StoreEnhancer
+} from "redux";
 import { dumpAction } from "./utils";
 
 export class StatesHolder {
@@ -8,14 +12,15 @@ export class StatesHolder {
 
   public readonly createDirtyStore = (
     reducer: Reducer,
-    preloadedState: object,
+    preloadedState?: any,
     enhancer?: StoreEnhancer
   ) => {
     this.dirtyStore = createStore(
       reducer,
       preloadedState,
-      enhancer === undefined ? applyMiddleware() : enhancer
+      enhancer
     );
+
     return this.dirtyStore;
   };
 
@@ -28,6 +33,10 @@ export class StatesHolder {
   };
 
   public readonly forceSyncStores = () => {
+    if (this.dirtyStore === undefined || this.externalStore === undefined) {
+      throw Error('Stores should be initialized');
+    }
+
     this.externalStore.dispatch(dumpAction(this.dirtyStore.getState()));
   };
 }
