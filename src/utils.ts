@@ -1,22 +1,42 @@
 import { Reducer, Store } from "redux";
-import { TrafficLight } from "./traffic-light";
+import { Diff, applyDiff } from "deep-diff";
 
-export const dumpAction = (payload: object) => ({
-  type: "dump",
+export const updateExternalStore = (payload: object) => ({
+  type: "full_update",
   payload
 });
 
-export const createDumpReducer = (): Reducer => (
-  _state,
-  action: ReturnType<typeof dumpAction>
-) => ({ ...action.payload });
+export const patchAction = (payload: Diff<any, any>[]) => ({
+  type: "patch",
+  payload
+});
+
+export const externalReducer: Reducer = (
+  state,
+  action: ReturnType<typeof updateExternalStore>
+) => {
+  if (action.type === "full_update") {
+    return { ...action.payload };
+  } else {
+    return state;
+  }
+};
+
+export const dirtyReducer: Reducer = (
+  state,
+  action: ReturnType<typeof patchAction>
+) => {
+  if (action.type === "patch") {
+    debugger
+    return applyDiff(state, action.payload);
+  } else {
+    return state;
+  }
+};
 
 export const createDumpListener = (
   externalStore: Store,
-  dirtyStore: Store,
-  trafficLight: TrafficLight
+  dirtyStore: Store
 ) => () => {
-  if (trafficLight.isUpdatesEnabled) {
-    externalStore.dispatch(dumpAction(dirtyStore.getState()));
-  }
+  externalStore.dispatch(updateExternalStore(dirtyStore.getState()));
 };

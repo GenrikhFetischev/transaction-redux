@@ -1,14 +1,6 @@
-import { createStoreCreator } from "./create-store";
-import { createTransactionWrapper } from "./transaction-wrapper";
-import { TrafficLight } from "./traffic-light";
-import { statesHolder } from "./states-holder";
+import { storeCreator } from "./create-store";
+import { getTansactionWrapper } from "./transaction-wrappers-holder";
 export * from "./reexports";
 
-const trafficLight = new TrafficLight();
-
-export const createStore = createStoreCreator(trafficLight);
-
-export const transactionWrapper = createTransactionWrapper(
-  trafficLight,
-  statesHolder
-);
+export const createStore = storeCreator;
+export { getTansactionWrapper };

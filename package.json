@@ -18,18 +18,22 @@
     "url": "https://github.com/GenrikhFetischev/transaction-redux"
   },
   "scripts": {
-    "prebuild": "rimraf lib/*",
+    "prepare:build": "rimraf lib/*",
     "build": "rollup -c",
-    "prepublish": "yarn lint && yarn test && yarn build",
+    "prepare:publish": "yarn lint && yarn test && yarn build",
     "lint": "eslint --ext=ts src/*",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write '**/*.ts'"
   },
   "dependencies": {
+    "deep-diff": "^1.0.2",
+    "jsonpatcherproxy": "^0.1.0-0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.0.0",
+    "@types/deep-diff": "^1.0.0",
     "@types/jest": "^24.0.22",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",

@@ -1,10 +1,6 @@
-import {
-  createStore,
-  Reducer,
-  Store,
-  StoreEnhancer
-} from "redux";
-import { dumpAction } from "./utils";
+import { createStore, Reducer, Store, StoreEnhancer } from "redux";
+import { updateExternalStore, patchAction, dirtyReducer } from "./utils";
+import { Diff } from "deep-diff";
 
 export class StatesHolder {
   public dirtyStore?: Store;
@@ -15,11 +11,12 @@ export class StatesHolder {
     preloadedState?: any,
     enhancer?: StoreEnhancer
   ) => {
-    this.dirtyStore = createStore(
-      reducer,
-      preloadedState,
-      enhancer
-    );
+    const patchedReducer: Reducer = (state, action) => {
+      const updatedState = reducer(state, action);
+      return dirtyReducer(updatedState, action);
+    };
+
+    this.dirtyStore = createStore(patchedReducer, preloadedState, enhancer);
 
     return this.dirtyStore;
   };
@@ -32,12 +29,20 @@ export class StatesHolder {
     return this.externalStore;
   };
 
+  public readonly patchStateWithTransactionResult = (
+    patch: Diff<any, any>[]
+  ) => {
+    this.dirtyStore.dispatch(patchAction(patch));
+  };
+
   public readonly forceSyncStores = () => {
     if (this.dirtyStore === undefined || this.externalStore === undefined) {
-      throw Error('Stores should be initialized');
+      throw Error("Stores should be initialized");
     }
 
-    this.externalStore.dispatch(dumpAction(this.dirtyStore.getState()));
+    this.externalStore.dispatch(
+      updateExternalStore(this.dirtyStore.getState())
+    );
   };
 }
 

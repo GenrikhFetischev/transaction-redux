@@ -6,7 +6,7 @@ import {
   UNSUBSCRIBE_IN_MIDDLE,
   THROW_ERROR,
   UNKNOWN_ACTION
-} from './action-types'
+} from "./action-types";
 
 import { Action, AnyAction, Dispatch } from "../..";
 

@@ -1,6 +1,6 @@
-import {AnyAction, applyMiddleware, Reducer} from "redux";
-import { createStore, transactionWrapper } from "../";
-import thunk ,{ ThunkDispatch } from "redux-thunk";
+import { AnyAction, applyMiddleware, Reducer } from "redux";
+import { createStore, getTansactionWrapper } from "../";
+import thunk, { ThunkDispatch } from "redux-thunk";
 
 describe("all tests", () => {
   const preloadState = { value: "initial" };
@@ -13,6 +13,7 @@ describe("all tests", () => {
   });
   const store = createStore(reducer, preloadState, applyMiddleware(thunk));
 
+  const transactionWrapper = getTansactionWrapper(store);
 
   test("synchronous transaction", async () => {
     const subscriber = jest.fn();
@@ -21,8 +22,9 @@ describe("all tests", () => {
     const dispatch = store.dispatch as ThunkDispatch<any, any, any>;
 
     await dispatch(
-      transactionWrapper(dispatch => {
+      transactionWrapper(async dispatch => {
         dispatch(actionCreator("second"));
+        const x = store.getState();
         expect(store.getState().value).toBe("second");
         dispatch(actionCreator("third"));
       })
