@@ -46,9 +46,6 @@ export const createTransactionWrapper = ({
   } catch (e) {
     error = e;
   } finally {
-    const updatedState = getState();
-    console.log(updatedState);
-    debugger;
     const patch = diff(reduxGetState(), getState());
     statesHolder.patchStateWithTransactionResult(patch);
   }

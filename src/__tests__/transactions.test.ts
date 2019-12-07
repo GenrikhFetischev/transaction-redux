@@ -22,10 +22,9 @@ describe("all tests", () => {
     const dispatch = store.dispatch as ThunkDispatch<any, any, any>;
 
     await dispatch(
-      transactionWrapper(async dispatch => {
+      transactionWrapper(async (dispatch, getState: any) => {
         dispatch(actionCreator("second"));
-        const x = store.getState();
-        expect(store.getState().value).toBe("second");
+        expect(getState().value).toBe("second");
         dispatch(actionCreator("third"));
       })
     );
@@ -41,10 +40,10 @@ describe("all tests", () => {
     const dispatch = store.dispatch as ThunkDispatch<any, any, any>;
 
     await dispatch(
-      transactionWrapper(async dispatch => {
+      transactionWrapper(async (dispatch, getState: any) => {
         await new Promise(resolve => setTimeout(() => resolve(), 10));
         await dispatch(actionCreator("second"));
-        expect(store.getState().value).toBe("second");
+        expect(getState().value).toBe("second");
         await dispatch(actionCreator("third"));
       })
     );
